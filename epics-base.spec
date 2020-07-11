@@ -77,21 +77,21 @@ make
 
 %install
 rm -rf $RPM_BUILD_ROOT
-mkdir -p $RPM_BUILD_ROOT/%{_prefix}/%{gemopt}/epics/base
+mkdir -p $RPM_BUILD_ROOT/%{_prefix}/%{name}
 mkdir -p $RPM_BUILD_ROOT/%{_prefix}/etc/profile.d
 mkdir -p $RPM_BUILD_ROOT/%{_prefix}/etc/ld.so.conf.d
-cp -r bin $RPM_BUILD_ROOT/%{_prefix}/%{gemopt}/epics/base/
-cp -r startup $RPM_BUILD_ROOT/%{_prefix}/%{gemopt}/epics/base/
-cp -r db $RPM_BUILD_ROOT/%{_prefix}/%{gemopt}/epics/base/
-cp -r dbd $RPM_BUILD_ROOT/%{_prefix}/%{gemopt}/epics/base/
-cp -r lib $RPM_BUILD_ROOT/%{_prefix}/%{gemopt}/epics/base/
-cp -r include $RPM_BUILD_ROOT/%{_prefix}/%{gemopt}/epics/base/
+cp -r bin $RPM_BUILD_ROOT/%{_prefix}/%{name}
+cp -r startup $RPM_BUILD_ROOT/%{_prefix}/%{name}
+cp -r db $RPM_BUILD_ROOT/%{_prefix}/%{name}
+cp -r dbd $RPM_BUILD_ROOT/%{_prefix}/%{name}
+cp -r lib $RPM_BUILD_ROOT/%{_prefix}/%{name}
+cp -r include $RPM_BUILD_ROOT/%{_prefix}/%{name}
 
-cp -r templates $RPM_BUILD_ROOT/%{_prefix}/%{gemopt}/epics/base/
-cp -r configure $RPM_BUILD_ROOT/%{_prefix}/%{gemopt}/epics/base/
+cp -r templates $RPM_BUILD_ROOT/%{_prefix}/%{name}
+cp -r configure $RPM_BUILD_ROOT/%{_prefix}/%{name}
 #find $RPM_BUILD_ROOT/%{_prefix}/%{gemopt}/epics/base -name ".git" -exec rm -rf {} +
-echo "%{_prefix}/%{gemopt}/epics/base/lib/$EPICS_HOST_ARCH" >  $RPM_BUILD_ROOT/%{_prefix}/etc/ld.so.conf.d/epics-base.so.conf
-chmod -R u+w $RPM_BUILD_ROOT/%{_prefix}/%{gemopt}/epics
+echo "%{_prefix}/%{name}/lib/$EPICS_HOST_ARCH" >  $RPM_BUILD_ROOT/%{_prefix}/etc/ld.so.conf.d/epics-base.so.conf
+chmod -R u+w $RPM_BUILD_ROOT/%{_prefix}/%{name}
 
 %post
 /sbin/ldconfig
@@ -105,20 +105,23 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
-   /%{_prefix}/%{gemopt}/epics/base/bin/*
-   /%{_prefix}/%{gemopt}/epics/base/startup/*
-   /%{_prefix}/%{gemopt}/epics/base/db/*
-   /%{_prefix}/%{gemopt}/epics/base/dbd/*
-   /%{_prefix}/%{gemopt}/epics/base/lib/*
+   /%{_prefix}/%{name}/bin
+   /%{_prefix}/%{name}/startup
+   /%{_prefix}/%{name}/db
+   /%{_prefix}/%{name}/dbd
+   /%{_prefix}/%{name}/lib
 
 %files devel
 %defattr(-,root,root)
-   /%{_prefix}/%{gemopt}/epics/base/include/*
-   /%{_prefix}/%{gemopt}/epics/base/templates/*
-   /%{_prefix}/%{gemopt}/epics/base/configure/*
+   /%{_prefix}/%{name}/include
+   /%{_prefix}/%{name}/templates
+   /%{_prefix}/%{name}/configure
 
 
 %changelog
+* Fri Jul 10 2020 Matt Rippa <mrippa@gemini.edu> 3.15.8-1.20200710gitc6dcfdf2c
+- Build test cleaning up specfile
+
 * Fri Jul 10 2020 Matt Rippa <mrippa@gemini.edu> 3.15.8-1.20200710git2670d8368
 - New build test 
 
