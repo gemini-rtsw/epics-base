@@ -119,6 +119,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jul 10 2020 Matt Rippa <mrippa@gemini.edu> 3.15.8-1.20200710gitb02b23b3f
+- Disabled INSTALL_LOCATION for rpm build (mrippa@gemini.edu)
+
 * Fri Jul 10 2020 Matt Rippa <mrippa@gemini.edu> 3.15.8-1.20200710gitc6dcfdf2c
 - Build test cleaning up specfile
 
