@@ -1,4 +1,4 @@
-%define _prefix gem_base
+%define _prefix /gem_base/epics
 %define gemopt opt
 %define name epics-base
 %define version 3.15.8
@@ -67,7 +67,7 @@ Requires: epics-base
 EPICS is a set of Open Source software tools, libraries and applications developed collaboratively and used worldwide to create distributed soft real-time control systems for scientific instruments such as a particle accelerators, telescopes and other large scientific experiments.
 
 %prep
-%setup -q -n %{name}
+%setup -q
 
 %build
 
@@ -119,6 +119,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jul 10 2020 Matt Rippa <mrippa@gemini.edu> 3.15.8-1.20200710git2670d8368
+- New build test 
+
 * Fri Jul 10 2020 Matt Rippa <mrippa@gemini.edu> 3.15.8-1.20200710git8bc35e5db
 - Update for gitlab import (mrippa@gemini.edu)
 
