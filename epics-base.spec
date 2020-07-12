@@ -110,6 +110,7 @@ rm -rf $RPM_BUILD_ROOT
    /%{_prefix}/%{name}/db
    /%{_prefix}/%{name}/dbd
    /%{_prefix}/%{name}/lib
+   /%{_prefix}/etc/ld.so.conf.d/epics-base.so.conf
 
 %files devel
 %defattr(-,root,root)
