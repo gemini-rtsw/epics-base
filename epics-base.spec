@@ -120,6 +120,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Jul 11 2020 Matt Rippa <mrippa@gemini.edu> 3.15.8-1.20200711gitdee16331e
+- Added epics-base.so.conf to package (mrippa@gemini.edu)
+
 * Fri Jul 10 2020 Matt Rippa <mrippa@gemini.edu> 3.15.8-1.20200710gitb02b23b3f
 - Disabled INSTALL_LOCATION for rpm build (mrippa@gemini.edu)
 
