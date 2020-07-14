@@ -22,7 +22,7 @@
 Summary: Experimental Physics and Industrial Control System
 Name: %{name}
 Version: %{version}
-Release: %release.%(date +"%Y%m%d")git%{checkout}%{?dist}
+Release: %release%{?dist}
 License: EPICS Open License
 Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
@@ -120,6 +120,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 13 2020 Matt Rippa <mrippa@gemini.edu> 3.15.8-1
+- 
+
 * Mon Jul 13 2020 Matt Rippa <mrippa@gemini.edu> 3.15.8-1.20200713git964f16799
 - Updated the ldconfig in %%post (mrippa@gemini.edu)
 
