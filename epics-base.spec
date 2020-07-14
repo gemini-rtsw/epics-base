@@ -120,6 +120,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 13 2020 Matt Rippa <mrippa@gemini.edu> 3.15.8-1.20200713git35ecf453f
+- Update epics install path to /gem_base/epics-base (mrippa@gemini.edu)
+
 * Sat Jul 11 2020 Matt Rippa <mrippa@gemini.edu> 3.15.8-1.20200711gitdee16331e
 - Added epics-base.so.conf to package (mrippa@gemini.edu)
 
