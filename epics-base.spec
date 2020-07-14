@@ -120,6 +120,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 13 2020 Matt Rippa <mrippa@gemini.edu> 3.15.8-1.20200713gite6c54efde
+- new package built with tito
+
 * Mon Jul 13 2020 Matt Rippa <mrippa@gemini.edu> 3.15.8-1.20200713git4eed08d10
 - 
 
