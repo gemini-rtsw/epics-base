@@ -78,8 +78,8 @@ make
 %install
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/%{_prefix}/%{name}
-mkdir -p $RPM_BUILD_ROOT/%{_prefix}/etc/profile.d
-mkdir -p $RPM_BUILD_ROOT/%{_prefix}/etc/ld.so.conf.d
+mkdir -p $RPM_BUILD_ROOT/%{_prefix}/%{name}/etc/profile.d
+mkdir -p $RPM_BUILD_ROOT/%{_prefix}/%{name}/etc/ld.so.conf.d
 cp -r bin $RPM_BUILD_ROOT/%{_prefix}/%{name}
 cp -r startup $RPM_BUILD_ROOT/%{_prefix}/%{name}
 cp -r db $RPM_BUILD_ROOT/%{_prefix}/%{name}
@@ -120,6 +120,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 13 2020 Matt Rippa <mrippa@gemini.edu> 3.15.8-1.20200713git4eed08d10
+- 
+
 * Mon Jul 13 2020 Matt Rippa <mrippa@gemini.edu> 3.15.8-1.20200713git35ecf453f
 - Update epics install path to /gem_base/epics-base (mrippa@gemini.edu)
 
