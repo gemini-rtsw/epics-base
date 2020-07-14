@@ -93,7 +93,7 @@ echo "%{_prefix}/%{name}/lib/$EPICS_HOST_ARCH" >  $RPM_BUILD_ROOT/%{_prefix}/%{n
 chmod -R u+w $RPM_BUILD_ROOT/%{_prefix}/%{name}
 
 %post
-/sbin/ldconfig
+/sbin/ldconfig -f /%{_prefix}/%{name}/etc/ld.so.conf.d/epics-base.so.conf
 
 %postun
 /sbin/ldconfig
