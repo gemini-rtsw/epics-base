@@ -120,6 +120,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 13 2020 Matt Rippa <mrippa@gemini.edu> 3.15.8-1.20200713git964f16799
+- Updated the ldconfig in %%post (mrippa@gemini.edu)
+
 * Mon Jul 13 2020 Matt Rippa <mrippa@gemini.edu> 3.15.8-1.20200713git01bc58e88
 - new package built with tito
 
