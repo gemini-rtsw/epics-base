@@ -1,4 +1,4 @@
-%define _prefix /gem_base/epics
+%define _prefix /gem_base
 %define gemopt opt
 %define name epics-base
 %define version 3.15.8
@@ -89,8 +89,7 @@ cp -r include $RPM_BUILD_ROOT/%{_prefix}/%{name}
 
 cp -r templates $RPM_BUILD_ROOT/%{_prefix}/%{name}
 cp -r configure $RPM_BUILD_ROOT/%{_prefix}/%{name}
-#find $RPM_BUILD_ROOT/%{_prefix}/%{gemopt}/epics/base -name ".git" -exec rm -rf {} +
-echo "%{_prefix}/%{name}/lib/$EPICS_HOST_ARCH" >  $RPM_BUILD_ROOT/%{_prefix}/etc/ld.so.conf.d/epics-base.so.conf
+echo "%{_prefix}/%{name}/lib/$EPICS_HOST_ARCH" >  $RPM_BUILD_ROOT/%{_prefix}/%{name}/etc/ld.so.conf.d/epics-base.so.conf
 chmod -R u+w $RPM_BUILD_ROOT/%{_prefix}/%{name}
 
 %post
@@ -105,12 +104,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
+%dir /%{_prefix}/%{name}
    /%{_prefix}/%{name}/bin
    /%{_prefix}/%{name}/startup
    /%{_prefix}/%{name}/db
    /%{_prefix}/%{name}/dbd
    /%{_prefix}/%{name}/lib
-   /%{_prefix}/etc/ld.so.conf.d/epics-base.so.conf
+   /%{_prefix}/%{name}/etc/ld.so.conf.d/epics-base.so.conf
 
 %files devel
 %defattr(-,root,root)
