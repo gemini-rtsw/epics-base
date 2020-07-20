@@ -121,6 +121,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Jul 19 2020 fkraemer <fkraemer@gemini.edu> 3.15.8-1.20200719git8fbeba17f
+- changed .tito/releasers conf to bootstrap from centos8:RTEMS container
+  (fkraemer@gemini.edu)
+
 * Sun Jul 19 2020 fkraemer <fkraemer@gemini.edu> 3.15.8-1.20200719gitca0ccc042
 - changed .tito/releasers.conf to bootstrap from Gemini centos8:RTEMS container
 
