@@ -121,6 +121,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Jul 19 2020 fkraemer <fkraemer@gemini.edu> 3.15.8-1.20200719gitc736b9bd4
+- added perl build requirement (fkraemer@gemini.edu)
+
 * Sun Jul 19 2020 fkraemer <fkraemer@gemini.edu> 3.15.8-1.20200719git8fbeba17f
 - changed .tito/releasers conf to bootstrap from centos8:RTEMS container
   (fkraemer@gemini.edu)
