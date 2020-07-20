@@ -22,7 +22,8 @@
 Summary: Experimental Physics and Industrial Control System
 Name: %{name}
 Version: %{version}
-Release: %release%{?dist}
+#Release: %release%{?dist}
+Release: %release.%(date +"%Y%m%d")git%{checkout}%{?dist}
 License: EPICS Open License
 Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
@@ -120,6 +121,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Jul 19 2020 fkraemer <fkraemer@gemini.edu> 3.15.8-1.20200719gitca0ccc042
+- changed .tito/releasers.conf to bootstrap from Gemini centos8:RTEMS container
+
 * Mon Jul 13 2020 Matt Rippa <mrippa@gemini.edu> 3.15.8-1
 - 
 
