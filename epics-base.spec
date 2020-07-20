@@ -29,8 +29,8 @@ Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
 ExclusiveArch: %{arch}
 Prefix: %{_prefix}
-BuildRequires: readline-devel
-Requires: readline
+BuildRequires: readline-devel perl
+Requires: readline perl
 
 
 ## Switch dependency checking off
