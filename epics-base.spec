@@ -23,7 +23,8 @@ Summary: Experimental Physics and Industrial Control System
 Name: %{name}
 Version: %{version}
 #Release: %release%{?dist}
-Release: %release.%(date +"%Y%m%d")git%{checkout}%{?dist}
+#Release: %release.%(date +"%Y%m%d")git%{checkout}%{?dist}
+Release: %release.%(date +"%Y%m%d")%{?dist}
 License: EPICS Open License
 Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
