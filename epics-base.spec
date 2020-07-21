@@ -1,7 +1,7 @@
 %define _prefix /gem_base/epics
 %define gemopt opt
 %define version 3.15.8
-%define name epics-%{version}
+%define name epics
 %define release 1
 %define repository gemdev
 %define debug_package %{nil}
@@ -22,8 +22,6 @@
 Summary: Experimental Physics and Industrial Control System
 Name: %{name}
 Version: %{version}
-#Release: %release%{?dist}
-#Release: %release.%(date +"%Y%m%d")git%{checkout}%{?dist}
 Release: %release.%(date +"%Y%m%d")%{?dist}
 License: EPICS Open License
 Group: Applications/Engineering
