@@ -122,6 +122,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Jul 21 2020 fkraemer <fkraemer@gemini.edu> 3.15.8-1.20200721
+- changed Release string (fkraemer@gemini.edu)
+
 * Sun Jul 19 2020 fkraemer <fkraemer@gemini.edu> 3.15.8-1.20200719gitc736b9bd4
 - added perl build requirement (fkraemer@gemini.edu)
 
