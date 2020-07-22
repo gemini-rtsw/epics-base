@@ -28,7 +28,7 @@ Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
 ExclusiveArch: %{arch}
 Prefix: %{_prefix}
-BuildRequires: readline-devel perl
+BuildRequires: readline-devel perl rtems=4.10.2
 Requires: readline perl
 
 
