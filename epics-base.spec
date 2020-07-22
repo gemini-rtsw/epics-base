@@ -93,7 +93,7 @@ echo "%{_prefix}/%{name}/lib/linux-x86_64" >  $RPM_BUILD_ROOT/etc/ld.so.conf.d/e
 chmod -R u+w $RPM_BUILD_ROOT/%{_prefix}/%{name}
 
 %post
-/sbin/ldconfig -a
+/sbin/ldconfig
 
 %postun
 /sbin/ldconfig
