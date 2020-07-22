@@ -1,7 +1,7 @@
 %define _prefix /gem_base/epics
 %define gemopt opt
 %define version 3.15.8
-%define name epics
+%define name epics-base
 %define release 1
 %define repository gemdev
 %define debug_package %{nil}
