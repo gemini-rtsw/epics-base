@@ -120,6 +120,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jul 22 2020 fkraemer <fkraemer@gemini.edu> 3.15.8-1.20200722
+- new package built with tito
+
 * Tue Jul 21 2020 fkraemer <fkraemer@gemini.edu> 3.15.8-1.20200721
 - changed Release string (fkraemer@gemini.edu)
 
