@@ -89,11 +89,11 @@ cp -r include $RPM_BUILD_ROOT/%{_prefix}/%{name}
 
 cp -r templates $RPM_BUILD_ROOT/%{_prefix}/%{name}
 cp -r configure $RPM_BUILD_ROOT/%{_prefix}/%{name}
-echo "%{_prefix}/%{name}/lib/$EPICS_HOST_ARCH" >  $RPM_BUILD_ROOT/%{_prefix}/%{name}/etc/ld.so.conf.d/epics-base.so.conf
+echo "%{_prefix}/%{name}/lib/linux-x86_64" >  $RPM_BUILD_ROOT/etc/ld.so.conf.d/epics-base.so.conf
 chmod -R u+w $RPM_BUILD_ROOT/%{_prefix}/%{name}
 
 %post
-/sbin/ldconfig -f /%{_prefix}/%{name}/etc/ld.so.conf.d/epics-base.so.conf
+/sbin/ldconfig -a
 
 %postun
 /sbin/ldconfig
@@ -110,7 +110,7 @@ rm -rf $RPM_BUILD_ROOT
    /%{_prefix}/%{name}/db
    /%{_prefix}/%{name}/dbd
    /%{_prefix}/%{name}/lib
-   /%{_prefix}/%{name}/etc/ld.so.conf.d/epics-base.so.conf
+   /etc/ld.so.conf.d/epics-base.so.conf
 
 %files devel
 %defattr(-,root,root)
