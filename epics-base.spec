@@ -120,6 +120,11 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jul 22 2020 fkraemer <fkraemer@gemini.edu> 3.15.8-1.202007222ecfcdd64
+- finally the right Release tag (fkraemer@gemini.edu)
+- fix deps (fkraemer@gemini.edu)
+- added rtems-4.10.2 dep (fkraemer@gemini.edu)
+
 * Wed Jul 22 2020 fkraemer <fkraemer@gemini.edu> 3.15.8-1.20200722.git6ae39e58d
 - fix in specfile (fkraemer@gemini.edu)
 
