@@ -120,6 +120,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jul 22 2020 fkraemer <fkraemer@gemini.edu> 3.15.8-1.20200722.gitb27bf85d1
+- bugfix (fkraemer@gemini.edu)
+
 * Wed Jul 22 2020 fkraemer <fkraemer@gemini.edu> 3.15.8-1.20200722.git94b626ef8
 - readded git hash to Release tag in specfile (fkraemer@gemini.edu)
 - changed epics-base.ld.so.conf to be located in /etc/ld.so.conf.d and
