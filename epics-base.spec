@@ -78,8 +78,8 @@ make
 %install
 rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/%{_prefix}/%{name}
-mkdir -p $RPM_BUILD_ROOT/%{_prefix}/%{name}/etc/profile.d
-mkdir -p $RPM_BUILD_ROOT/%{_prefix}/%{name}/etc/ld.so.conf.d
+#mkdir -p $RPM_BUILD_ROOT/%{_prefix}/%{name}/etc/profile.d
+mkdir -p $RPM_BUILD_ROOT/etc/ld.so.conf.d
 cp -r bin $RPM_BUILD_ROOT/%{_prefix}/%{name}
 cp -r startup $RPM_BUILD_ROOT/%{_prefix}/%{name}
 cp -r db $RPM_BUILD_ROOT/%{_prefix}/%{name}
