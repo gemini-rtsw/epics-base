@@ -28,7 +28,7 @@ Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
 ExclusiveArch: %{arch}
 Prefix: %{_prefix}
-BuildRequires: readline-devel perl rtems=4.10.2
+BuildRequires: readline-devel perl rtems
 Requires: readline perl
 
 
@@ -62,7 +62,7 @@ EPICS is a set of Open Source software tools, libraries and applications develop
 
 %package devel
 Summary: Experimental Physics and Industrial Control System
-Requires: epics-base
+Requires: epics-base rtems
 %description devel
 EPICS is a set of Open Source software tools, libraries and applications developed collaboratively and used worldwide to create distributed soft real-time control systems for scientific instruments such as a particle accelerators, telescopes and other large scientific experiments.
 
