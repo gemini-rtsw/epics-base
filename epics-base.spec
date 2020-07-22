@@ -22,7 +22,7 @@
 Summary: Experimental Physics and Industrial Control System
 Name: %{name}
 Version: %{version}
-Release: %release.%(date +"%Y%m%d")%{?dist}
+Release: %release.%(date +"%Y%m%d").git%{checkout}%{?dist}
 License: EPICS Open License
 Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
@@ -120,6 +120,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jul 22 2020 fkraemer <fkraemer@gemini.edu>
+- changed epics-base.ld.so.conf to be located in /etc/ld.so.conf.d and
+  explixitly set dir to linux-x86_64 (fkraemer@gemini.edu)
+
 * Wed Jul 22 2020 fkraemer <fkraemer@gemini.edu> 3.15.8-1.20200722
 - new package built with tito
 
