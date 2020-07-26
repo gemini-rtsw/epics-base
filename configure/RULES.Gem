@@ -89,7 +89,7 @@ $(COMMON_DIR)/%.db: ../%.vdb $(VDB_DEPS)
 	   $(E2DB) $(E2DB_SYSFLAGS) $(E2DB_FLAGS) $(notdir $(subst sch,edf,$<)); \
 	 else                                                                    \
 	   echo "Xvfb :1 &" ;            \
-	   Xvfb :1 & ;            \
+	   (Xvfb :1 &) ;            \
 	   echo "DISPLAY=:1 java -jar $(TDCT)/tdct.jar -ignoreversion -cfg $(TDCT_CFG) -st $< -db $(COMMON_DIR)" ;            \
 	   DISPLAY=:1 java -jar $(TDCT)/tdct.jar -ignoreversion -cfg $(TDCT_CFG) -st $< -db $(COMMON_DIR) ;            \
 	 fi
