@@ -116,7 +116,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
    /%{_prefix}/%{name}/include
    /%{_prefix}/%{name}/templates
-   /%{_prefix}/%{name}/configure
+%config /%{_prefix}/%{name}/configure
 
 
 %changelog
