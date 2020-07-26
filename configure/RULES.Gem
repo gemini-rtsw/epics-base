@@ -88,8 +88,8 @@ $(COMMON_DIR)/%.db: ../%.vdb $(VDB_DEPS)
 	   $(SCH2EDIF) $(SCH2EDIF_SYSFLAGS) $(SCH2EDIF_FLAGS) $< ;               \
 	   $(E2DB) $(E2DB_SYSFLAGS) $(E2DB_FLAGS) $(notdir $(subst sch,edf,$<)); \
 	 else                                                                    \
-	   echo "Xvfb :1 -ac -nolisten tcp -nolisten unix & sleep 1; DISPLAY=:1 java -jar $(TDCT)/tdct.jar -ignoreversion -cfg $(TDCT_CFG) -st $< -db $(COMMON_DIR)" ;            \
-	   Xvfb :1 -ac -nolisten tcp -nolisten unix & sleep 1; DISPLAY=:1 java -jar $(TDCT)/tdct.jar -ignoreversion -cfg $(TDCT_CFG) -st $< -db $(COMMON_DIR) ;            \
+	   echo "Xvfb :1 -ac -nolisten tcp -nolisten unix & sleep 1; DISPLAY=:1 java -jar $(TDCT)/tdct.jar -ignoreversion -cfg $(TDCT_CFG) -st $< -db $(COMMON_DIR) & sleep 10" ;            \
+	   Xvfb :1 -ac -nolisten tcp -nolisten unix & sleep 1; DISPLAY=:1 java -jar $(TDCT)/tdct.jar -ignoreversion -cfg $(TDCT_CFG) -st $< -db $(COMMON_DIR) & sleep 10;            \
 	 fi
 
 # translate a dbTemplate style substitution file.
