@@ -90,10 +90,8 @@ $(COMMON_DIR)/%.db: ../%.vdb $(VDB_DEPS)
 	 else                                                                    \
 	   echo "Xvfb :1 &" ;            \
 	   Xvfb :1 & ;            \
-	   echo "export DISPLAY=:1" ;            \
-	   export DISPLAY=:1 ;            \
-	   echo "java -jar $(TDCT)/tdct.jar -ignoreversion -cfg $(TDCT_CFG) -st $< -db $(COMMON_DIR)" ;            \
-	   java -jar $(TDCT)/tdct.jar -ignoreversion -cfg $(TDCT_CFG) -st $< -db $(COMMON_DIR) ;            \
+	   echo "DISPLAY=:1 java -jar $(TDCT)/tdct.jar -ignoreversion -cfg $(TDCT_CFG) -st $< -db $(COMMON_DIR)" ;            \
+	   DISPLAY=:1 java -jar $(TDCT)/tdct.jar -ignoreversion -cfg $(TDCT_CFG) -st $< -db $(COMMON_DIR) ;            \
 	 fi
 
 # translate a dbTemplate style substitution file.
