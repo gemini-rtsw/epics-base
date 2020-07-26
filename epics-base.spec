@@ -29,7 +29,7 @@ Source0: %{name}-%{version}.tar.gz
 ExclusiveArch: %{arch}
 Prefix: %{_prefix}
 BuildRequires: readline-devel perl rtems
-Requires: readline perl
+Requires: readline perl xorg-x11-server-Xvfb
 
 
 ## Switch dependency checking off
