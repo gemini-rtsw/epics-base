@@ -28,7 +28,7 @@ Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
 ExclusiveArch: %{arch}
 Prefix: %{_prefix}
-BuildRequires: gemini-ade readline-devel perl rtems
+BuildRequires: gemini-ade re2c readline-devel perl rtems
 Requires: gemini-ade readline perl xorg-x11-server-Xvfb
 
 
@@ -62,7 +62,7 @@ EPICS is a set of Open Source software tools, libraries and applications develop
 
 %package devel
 Summary: Experimental Physics and Industrial Control System
-Requires: epics-base rtems
+Requires: epics-base rtems gemini-ade re2c readline-devel perl 
 %description devel
 EPICS is a set of Open Source software tools, libraries and applications developed collaboratively and used worldwide to create distributed soft real-time control systems for scientific instruments such as a particle accelerators, telescopes and other large scientific experiments.
 

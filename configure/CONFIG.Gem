@@ -37,8 +37,6 @@ empty:=
 space:= $(empty) $(empty)
 TDCT_PATHS2 = $(subst $(space),$(colon),$(TDCT_PATHS1))
 # Export this as an environment variable, having added the standard TDCT symbol library location
-#export SYS_TDCT_PATHS = $(TDCT_PATHS2):$(EPICS)/extensions/src/tdct/sym
-#export SYS_TDCT_PATHS = $(TDCT_PATHS2):$(TDCT)/library/default_tdct:$(TDCT)/library/epics:$(TDCT)/library/gemini
 export SYS_TDCT_PATHS = $(TDCT_PATHS2):$(TDCT)/sym:$(TDCT)/library/default_tdct:$(TDCT)/library/epics:$(TDCT)/library/gemini
 $(info $$SYS_TDCT_PATHS is [${SYS_TDCT_PATHS}])
 
