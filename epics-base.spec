@@ -28,8 +28,8 @@ Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
 ExclusiveArch: %{arch}
 Prefix: %{_prefix}
-BuildRequires: readline-devel perl rtems
-Requires: readline perl xorg-x11-server-Xvfb
+BuildRequires: gemini-ade readline-devel perl rtems
+Requires: gemini-ade readline perl xorg-x11-server-Xvfb
 
 
 ## Switch dependency checking off
