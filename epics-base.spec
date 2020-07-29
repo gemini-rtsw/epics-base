@@ -120,6 +120,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jul 29 2020 fkraemer <fkraemer@gemini.edu> 3.15.8-1.202007291ab23e4d8
+- adjusted dependecies (fkraemer@gemini.edu)
+
 * Tue Jul 28 2020 fkraemer <fkraemer@gemini.edu> 3.15.8-1.20200728c8d492334
 - added $(TDCT)/library/gemini to tdct sys path (fkraemer@gemini.edu)
 
