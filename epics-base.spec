@@ -120,6 +120,24 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Jul 28 2020 fkraemer <fkraemer@gemini.edu> 3.15.8-1.20200728a13f1f412
+- addede gemini-ade dependency to specfile (fkraemer@gemini.edu)
+- switching everything regarding java back (fkraemer@gemini.edu)
+- move tdct to background and wait 10 seconds (fkraemer@gemini.edu)
+- make Xvfb a background process of the running one (fkraemer@gemini.edu)
+- changed Cvfb call to hopefully not require euid=0 (fkraemer@gemini.edu)
+- moved 'Xvfb &' into a subshell (fkraemer@gemini.edu)
+- prepend DISPLAY=:1 to 'java -jar tdct.jar...' call (fkraemer@gemini.edu)
+- added xorg-x11-server-Xvfb.x86_64 dependecy and changed RULES.Gem to let tdct
+  have a virtual X environment (fkraemer@gemini.edu)
+- fix in java command line option (fkraemer@gemini.edu)
+- added -D -Djava.awt.headless=true to start 'java -jar tdct.jar' in RULES.Gem
+  to be able to build on headless systems (fkraemer@gemini.edu)
+- fixed RTEMS path (fkraemer@gemini.edu)
+- added gemini-ade epics config files to omitt rpm installtion conflicts on
+  file level (fkraemer@gemini.edu)
+- removed files to be added by gemini-ade (fkraemer@gemini.edu)
+
 * Wed Jul 22 2020 fkraemer <fkraemer@gemini.edu> 3.15.8-1.202007222ecfcdd64
 - finally the right Release tag (fkraemer@gemini.edu)
 - fix deps (fkraemer@gemini.edu)
