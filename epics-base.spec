@@ -120,6 +120,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Jul 28 2020 fkraemer <fkraemer@gemini.edu> 3.15.8-1.20200728c8d492334
+- added $(TDCT)/library/gemini to tdct sys path (fkraemer@gemini.edu)
+
 * Tue Jul 28 2020 fkraemer <fkraemer@gemini.edu> 3.15.8-1.20200728a13f1f412
 - addede gemini-ade dependency to specfile (fkraemer@gemini.edu)
 - switching everything regarding java back (fkraemer@gemini.edu)
