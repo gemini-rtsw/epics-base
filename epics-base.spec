@@ -120,6 +120,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Aug 05 2020 fkraemer <fkraemer@gemini.edu> 3.15.8-1.202008050552371f4cf91
+- Release tag enriched with hour and minute (%%H%%M) to be able to build
+  several RPMs a day without messing up the repo (fkraemer@gemini.edu)
+
 * Wed Jul 29 2020 fkraemer <fkraemer@gemini.edu> 3.15.8-1.202007291ab23e4d8
 - adjusted dependecies (fkraemer@gemini.edu)
 
