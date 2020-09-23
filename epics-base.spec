@@ -21,7 +21,7 @@
 Summary: Experimental Physics and Industrial Control System
 Name: %{name}
 Version: %{version}
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: EPICS Open License
 Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
@@ -119,6 +119,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Sep 23 2020 fkraemer <fkraemer@gemini.edu> 3.15.8-3
+- rsync target changed (was the same twice) (fkraemer@gemini.edu)
+
 * Wed Sep 23 2020 fkraemer <fkraemer@gemini.edu> 3.15.8-2
 - changed to new version/release numbering scheme
 
