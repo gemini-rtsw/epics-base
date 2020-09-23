@@ -2,7 +2,6 @@
 %define gemopt opt
 %define version 3.15.8
 %define name epics-base
-%define release 1
 %define repository gemdev
 %define debug_package %{nil}
 %define arch %(uname -m)
@@ -22,7 +21,7 @@
 Summary: Experimental Physics and Industrial Control System
 Name: %{name}
 Version: %{version}
-Release: %release.%(date +"%Y%m%d%H%M")%{checkout}%{?dist}
+Release: 2%{?dist}
 License: EPICS Open License
 Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
@@ -120,6 +119,13 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Sep 23 2020 fkraemer <fkraemer@gemini.edu> 3.15.8-2
+- changed to new version/release numbering scheme
+
+* Wed Aug 05 2020 fkraemer <fkraemer@gemini.edu> 3.15.8-1.202008050552371f4cf91
+- Release tag enriched with hour and minute (%%H%%M) to be able to build
+  several RPMs a day without messing up the repo (fkraemer@gemini.edu)
+
 * Wed Jul 29 2020 fkraemer <fkraemer@gemini.edu> 3.15.8-1.202007291ab23e4d8
 - adjusted dependecies (fkraemer@gemini.edu)
 
