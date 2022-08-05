@@ -1,0 +1,4 @@
+[submodule "vendor/epics-base"]
+	path = vendor/epics-base
+	url = https://github.com/epics-base/epics-base.git
+	branch = 7.0

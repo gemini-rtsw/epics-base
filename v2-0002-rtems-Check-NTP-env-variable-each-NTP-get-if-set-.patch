@@ -1,0 +1,175 @@
+From 53375dbaa17cd9be2c2ed3edd9ac99f6a7b98f53 Mon Sep 17 00:00:00 2001
+From: Chris Johns <chrisj@rtems.org>
+Date: Mon, 1 Aug 2022 16:08:50 -1000
+Subject: [PATCH v2 2/2] rtems: Check NTP env variable each NTP get if set in
+ boot script
+
+- Remove NTP shadowed variables from the initialization
+
+- Add a print of NVRAM values
+
+- Include the Legacy stack header to pick up the NTP externals
+---
+ modules/libcom/RTEMS/posix/rtems_init.c       | 10 ++----
+ modules/libcom/RTEMS/setBootConfigFromNVRAM.c | 21 +++++++++++
+ .../libcom/src/osi/os/RTEMS-posix/osdTime.cpp | 35 ++++++++++++++++++-
+ 3 files changed, 57 insertions(+), 9 deletions(-)
+
+diff --git a/modules/libcom/RTEMS/posix/rtems_init.c b/modules/libcom/RTEMS/posix/rtems_init.c
+index 2a394620c..aed34f527 100644
+--- a/modules/libcom/RTEMS/posix/rtems_init.c
++++ b/modules/libcom/RTEMS/posix/rtems_init.c
+@@ -59,6 +59,7 @@
+ 
+ #ifdef RTEMS_LEGACY_STACK
+ #include <rtems/rtems_bsdnet.h>
++#include <rtems/bsdnet/servers.h>
+ #include <librtemsNfs.h>
+ #else // libbsd stack
+ #include <rtems/bsd/bsd.h>
+@@ -1087,14 +1088,6 @@ POSIX_Init ( void *argument __attribute__((unused)))
+       }
+     }
+ #else // Legacy stack, old network initialization
+-    char *cp;
+-    if ((cp = getenv("EPICS_TS_NTP_INET")) != NULL)
+-        rtems_bsdnet_config.ntp_server[0] = cp;
+-
+-    int rtems_bsdnet_ntpserver_count = 1;
+-    struct in_addr rtems_bsdnet_ntpserver[rtems_bsdnet_ntpserver_count];
+-    memcpy(rtems_bsdnet_ntpserver, rtems_bsdnet_config.ntp_server, sizeof(struct in_addr));
+-
+     if (rtems_bsdnet_config.network_task_priority == 0)
+     {
+         unsigned int p;
+@@ -1105,6 +1098,7 @@ POSIX_Init ( void *argument __attribute__((unused)))
+         }
+     }
+     printf("\n***** Initializing network (Legacy Stack)  *****\n");
++    sleep(1);
+     rtems_bsdnet_initialize_network();
+     printf("\n***** Network Status  *****\n");
+     rtems_netstat(3);
+diff --git a/modules/libcom/RTEMS/setBootConfigFromNVRAM.c b/modules/libcom/RTEMS/setBootConfigFromNVRAM.c
+index 9f1b3e4e7..9f25f3749 100644
+--- a/modules/libcom/RTEMS/setBootConfigFromNVRAM.c
++++ b/modules/libcom/RTEMS/setBootConfigFromNVRAM.c
+@@ -298,6 +298,27 @@ setBootConfigFromNVRAM(void)
+     while (d < ((char *)&nvram + sizeof nvram))
+         *d++ = *s++;
+     }
++#endif
++#if PRINT_NVRAM
++    printf("NVRAM:\n");
++    printf("  PacketVersionIdentifier = %08x\n", nvram.PacketVersionIdentifier);
++    printf("  NodeControlMemoryAddress = %08x\n", nvram.NodeControlMemoryAddress);
++    printf("  BootFileLoadAddress = %08x\n", nvram.BootFileLoadAddress);
++    printf("  BootFileExecutionAddress = %08x\n", nvram.BootFileExecutionAddress);
++    printf("  BootFileExecutionDelay = %08x\n", nvram.BootFileExecutionDelay);
++    printf("  BootFileLength = %08x\n", nvram.BootFileLength);
++    printf("  BootFileByteOffset = %08x\n", nvram.BootFileByteOffset);
++    printf("  TraceBufferAddress = %08x\n", nvram.TraceBufferAddress);
++    printf("  ClientIPAddress = %08x\n", nvram.ClientIPAddress);
++    printf("  ServerIPAddress = %08x\n", nvram.ServerIPAddress);
++    printf("  SubnetIPAddressMask = %08x\n", nvram.SubnetIPAddressMask);
++    printf("  BroadcastIPAddressMask = %08x\n", nvram.BroadcastIPAddressMask);
++    printf("  GatewayIPAddress = %08x\n", nvram.GatewayIPAddress);
++    printf("  BootpRarpRetry = %02x\n", (uint32_t) nvram.BootpRarpRetry);
++    printf("  TftpRarpRetry = %02x\n", (uint32_t) nvram.TftpRarpRetry);
++    printf("  BootpRarpControl = %02x\n", (uint32_t) nvram.BootpRarpControl);
++    printf("  BootFilenameString = %s\n", nvram.BootFilenameString);
++    printf("  ArgumentFilenameString = %s\n", nvram.ArgumentFilenameString);
+ #endif
+     /*
+      * Assume that the boot server is also the name, log and ntp server!
+diff --git a/modules/libcom/src/osi/os/RTEMS-posix/osdTime.cpp b/modules/libcom/src/osi/os/RTEMS-posix/osdTime.cpp
+index 803bd72ac..377d347a7 100644
+--- a/modules/libcom/src/osi/os/RTEMS-posix/osdTime.cpp
++++ b/modules/libcom/src/osi/os/RTEMS-posix/osdTime.cpp
+@@ -12,6 +12,7 @@
+ //#define __BSD_VISIBLE 1
+ #include <sys/types.h>
+ #include <sys/socket.h>
++#include <arpa/inet.h>
+ 
+ #define EPICS_EXPOSE_LIBCOM_MONOTONIC_PRIVATE
+ #include <epicsStdio.h>
+@@ -21,21 +22,41 @@
+ #include <sys/types.h>
+ #include <sys/socket.h>
+ #include <netinet/in.h>
++#include "envDefs.h"
+ #include "epicsTime.h"
+ #include "osdTime.h"
+ #include "osiNTPTime.h"
+ #include "osiClockTime.h"
+ #include "generalTimeSup.h"
+ 
++#include <rtems/rtems_bsdnet.h>
+ #include <rtems/rtems_bsdnet_internal.h>
++#include <rtems/bsdnet/servers.h>
++
+ extern "C" {
+ 
+ extern rtems_interval rtemsTicksPerSecond;
+-int rtems_bsdnet_get_ntp(int, int(*)(), struct timespec *);
+ static int ntpSocket = -1;
++static bool haveEnvEPICS_TS_NTP_INET;
++
++static void checkEnv(void) {
++    if (!haveEnvEPICS_TS_NTP_INET) {
++        const char* cp = getenv("EPICS_TS_NTP_INET");
++        if (cp != NULL) {
++            #define NUMOF(_s) (int) (sizeof(_s) / sizeof(_s[0]))
++            if (rtems_bsdnet_ntpserver_count < NUMOF(rtems_bsdnet_config.name_server)) {
++                rtems_bsdnet_ntpserver[rtems_bsdnet_ntpserver_count++].s_addr =
++                    inet_addr (cp);
++            }
++            haveEnvEPICS_TS_NTP_INET = true;
++        }
++    }
++}
+ 
+ void osdTimeRegister(void)
+ {
++    checkEnv();
++
+     /* Init NTP first so it can be used to sync ClockTime */
+     NTPTime_Init(100);
+     ClockTime_Init(CLOCKTIME_SYNC);
+@@ -51,6 +72,8 @@ int osdNTPGet(struct timespec *ts)
+     if (ntpSocket < 0)
+         return -1;
+ 
++    checkEnv();
++
+     /* rtems_bsdnet_get_ntp() will send an NTP request, then
+      * call recvfrom() exactly once to process the expected reply.
+      * Any leftovers in the socket buffer (ie. duplicates of
+@@ -83,6 +106,8 @@ void osdNTPInit(void)
+ {
+     struct sockaddr_in myAddr;
+ 
++    checkEnv();
++
+     ntpSocket = socket (AF_INET, SOCK_DGRAM, 0);
+     if (ntpSocket < 0) {
+         printf("osdNTPInit() Can't create socket: %s\n", strerror (errno));
+@@ -101,6 +126,14 @@ void osdNTPInit(void)
+ 
+ void osdNTPReport(void)
+ {
++    if (rtems_bsdnet_ntpserver_count != 0) {
++        printf("NTP Servers = %d\n", rtems_bsdnet_ntpserver_count);
++        int i;
++        for (i = 0; i < rtems_bsdnet_ntpserver_count; ++i) {
++            uint8_t* p = (uint8_t*) &rtems_bsdnet_ntpserver[i];
++            printf(" %i - %u.%u.%u.%u\n", i, p[0], p[1], p[2], p[3]);
++        }
++    }
+ }
+ 
+ int osdTickGet(void)
+-- 
+2.31.1
+
