@@ -4,7 +4,6 @@ set -x
 cp -r vendor/epics-base tmp
 cp configure/CONFIG_SITE.local tmp/configure/
 
-mkdir tmp 
 pushd tmp
 
 git apply ../0001-rtems-Close-NTP-socket.patch
