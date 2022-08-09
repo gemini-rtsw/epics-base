@@ -1,7 +1,7 @@
 From 74148443e0fcb3bf6ff460612ae0f1b880811693 Mon Sep 17 00:00:00 2001
 From: Chris Johns <chrisj@rtems.org>
 Date: Mon, 25 Jul 2022 21:53:25 -1000
-Subject: [PATCH v2 1/2] rtems: Provide an NTP version of osdTime for POSIX
+Subject: [PATCH v3 1/2] rtems: Provide an NTP version of osdTime for POSIX
 
 - This makes osdTime compatiable with the `legacy` or as it is
   called `score` version of osdTime

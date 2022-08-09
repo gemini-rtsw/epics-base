@@ -1,7 +1,7 @@
 From 53375dbaa17cd9be2c2ed3edd9ac99f6a7b98f53 Mon Sep 17 00:00:00 2001
 From: Chris Johns <chrisj@rtems.org>
 Date: Mon, 1 Aug 2022 16:08:50 -1000
-Subject: [PATCH v2 2/2] rtems: Check NTP env variable each NTP get if set in
+Subject: [PATCH v3 2/2] rtems: Check NTP env variable each NTP get if set in
  boot script
 
 - Remove NTP shadowed variables from the initialization
