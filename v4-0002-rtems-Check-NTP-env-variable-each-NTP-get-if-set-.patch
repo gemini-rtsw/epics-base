@@ -1,7 +1,7 @@
-From 53375dbaa17cd9be2c2ed3edd9ac99f6a7b98f53 Mon Sep 17 00:00:00 2001
+From 5efaa245f9b438028e07a4ca5b97b9ccde484896 Mon Sep 17 00:00:00 2001
 From: Chris Johns <chrisj@rtems.org>
 Date: Mon, 1 Aug 2022 16:08:50 -1000
-Subject: [PATCH v3 2/2] rtems: Check NTP env variable each NTP get if set in
+Subject: [PATCH v4 2/2] rtems: Check NTP env variable each NTP get if set in
  boot script
 
 - Remove NTP shadowed variables from the initialization
@@ -10,10 +10,10 @@ Subject: [PATCH v3 2/2] rtems: Check NTP env variable each NTP get if set in
 
 - Include the Legacy stack header to pick up the NTP externals
 ---
- modules/libcom/RTEMS/posix/rtems_init.c       | 10 ++----
- modules/libcom/RTEMS/setBootConfigFromNVRAM.c | 21 +++++++++++
- .../libcom/src/osi/os/RTEMS-posix/osdTime.cpp | 35 ++++++++++++++++++-
- 3 files changed, 57 insertions(+), 9 deletions(-)
+ modules/libcom/RTEMS/posix/rtems_init.c       | 10 +--
+ modules/libcom/RTEMS/setBootConfigFromNVRAM.c | 21 ++++++
+ .../libcom/src/osi/os/RTEMS-posix/osdTime.cpp | 73 ++++++++++++++++++-
+ 3 files changed, 95 insertions(+), 9 deletions(-)
 
 diff --git a/modules/libcom/RTEMS/posix/rtems_init.c b/modules/libcom/RTEMS/posix/rtems_init.c
 index 2a394620c..aed34f527 100644
@@ -83,7 +83,7 @@ index 9f1b3e4e7..9f25f3749 100644
      /*
       * Assume that the boot server is also the name, log and ntp server!
 diff --git a/modules/libcom/src/osi/os/RTEMS-posix/osdTime.cpp b/modules/libcom/src/osi/os/RTEMS-posix/osdTime.cpp
-index 803bd72ac..377d347a7 100644
+index 803bd72ac..0fa01f977 100644
 --- a/modules/libcom/src/osi/os/RTEMS-posix/osdTime.cpp
 +++ b/modules/libcom/src/osi/os/RTEMS-posix/osdTime.cpp
 @@ -12,6 +12,7 @@
@@ -94,7 +94,7 @@ index 803bd72ac..377d347a7 100644
  
  #define EPICS_EXPOSE_LIBCOM_MONOTONIC_PRIVATE
  #include <epicsStdio.h>
-@@ -21,21 +22,41 @@
+@@ -21,21 +22,78 @@
  #include <sys/types.h>
  #include <sys/socket.h>
  #include <netinet/in.h>
@@ -114,19 +114,56 @@ index 803bd72ac..377d347a7 100644
  extern rtems_interval rtemsTicksPerSecond;
 -int rtems_bsdnet_get_ntp(int, int(*)(), struct timespec *);
  static int ntpSocket = -1;
-+static bool haveEnvEPICS_TS_NTP_INET;
++static struct in_addr envEPICS_TS_NTP_INET;
 +
++static bool addressCompare(const struct in_addr* a, const struct in_addr* b) {
++    return a->s_addr == b->s_addr;
++}
++
++/*
++ * BOOTP will set an entry. Insert the ENV variable into the table as
++ * the first entry so it is used.
++ */
 +static void checkEnv(void) {
-+    if (!haveEnvEPICS_TS_NTP_INET) {
-+        const char* cp = getenv("EPICS_TS_NTP_INET");
-+        if (cp != NULL) {
-+            #define NUMOF(_s) (int) (sizeof(_s) / sizeof(_s[0]))
-+            if (rtems_bsdnet_ntpserver_count < NUMOF(rtems_bsdnet_config.name_server)) {
-+                rtems_bsdnet_ntpserver[rtems_bsdnet_ntpserver_count++].s_addr =
-+                    inet_addr (cp);
-+            }
-+            haveEnvEPICS_TS_NTP_INET = true;
++    #define NUMOF(_s) (int) (sizeof(_s) / sizeof(_s[0]))
++    const char* cp = getenv("EPICS_TS_NTP_INET");
++    int index;
++    for (index = 0; index < rtems_bsdnet_ntpserver_count; ++index) {
++        if (addressCompare(&rtems_bsdnet_ntpserver[index], &envEPICS_TS_NTP_INET)) {
++            break;
 +        }
++    }
++    if (index == rtems_bsdnet_ntpserver_count) {
++        if (cp != NULL) {
++            if (rtems_bsdnet_ntpserver_count < NUMOF(rtems_bsdnet_config.name_server)) {
++                /* insert to start of table */
++                rtems_bsdnet_ntpserver_count++;
++                for (index = 0; index < rtems_bsdnet_ntpserver_count; ++index) {
++                    rtems_bsdnet_ntpserver[index + 1] = rtems_bsdnet_ntpserver[index];
++                }
++                index = 0;
++            } else {
++                index = -1;
++            }
++        } else {
++            /* ignore */
++            index = -1;
++        }
++    } else {
++        if (cp == NULL) {
++            /* remove and compact */
++            while (index < rtems_bsdnet_ntpserver_count - 1) {
++                rtems_bsdnet_ntpserver[index] = rtems_bsdnet_ntpserver[index + 1];
++                ++index;
++            }
++            --rtems_bsdnet_ntpserver_count;
++            rtems_bsdnet_ntpserver[rtems_bsdnet_ntpserver_count] = { 0 };
++            index = -1;
++        }
++    }
++    if (index >= 0 && cp != NULL) {
++        envEPICS_TS_NTP_INET.s_addr = inet_addr (cp);
++        rtems_bsdnet_ntpserver[index] = envEPICS_TS_NTP_INET;
 +    }
 +}
  
@@ -137,7 +174,7 @@ index 803bd72ac..377d347a7 100644
      /* Init NTP first so it can be used to sync ClockTime */
      NTPTime_Init(100);
      ClockTime_Init(CLOCKTIME_SYNC);
-@@ -51,6 +72,8 @@ int osdNTPGet(struct timespec *ts)
+@@ -51,6 +109,8 @@ int osdNTPGet(struct timespec *ts)
      if (ntpSocket < 0)
          return -1;
  
@@ -146,7 +183,7 @@ index 803bd72ac..377d347a7 100644
      /* rtems_bsdnet_get_ntp() will send an NTP request, then
       * call recvfrom() exactly once to process the expected reply.
       * Any leftovers in the socket buffer (ie. duplicates of
-@@ -83,6 +106,8 @@ void osdNTPInit(void)
+@@ -83,6 +143,8 @@ void osdNTPInit(void)
  {
      struct sockaddr_in myAddr;
  
@@ -155,7 +192,7 @@ index 803bd72ac..377d347a7 100644
      ntpSocket = socket (AF_INET, SOCK_DGRAM, 0);
      if (ntpSocket < 0) {
          printf("osdNTPInit() Can't create socket: %s\n", strerror (errno));
-@@ -101,6 +126,14 @@ void osdNTPInit(void)
+@@ -101,6 +163,14 @@ void osdNTPInit(void)
  
  void osdNTPReport(void)
  {
@@ -170,6 +207,14 @@ index 803bd72ac..377d347a7 100644
  }
  
  int osdTickGet(void)
+@@ -154,6 +224,7 @@ double rtemsTicksPerSecond_double, rtemsTicksPerTwoSeconds_double;
+  * standard time providers at static constructor time; in this
+  * case the network is available already.
+  */
++extern "C" int printk(const char* fmt);
+ static int staticTimeRegister(void)
+ {
+     rtemsTicksPerSecond = rtems_clock_get_ticks_per_second();
 -- 
 2.31.1
 
