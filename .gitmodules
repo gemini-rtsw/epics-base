@@ -2,3 +2,7 @@
 	path = vendor/epics-base
 	url = https://github.com/epics-base/epics-base.git
 	branch = 7.0
+[submodule "gem-ci"]
+	path = gem-ci
+	url = ../../gem-ci
+	branch = unstable/2022q1
