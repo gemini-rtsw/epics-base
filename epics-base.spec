@@ -22,7 +22,7 @@
 
 Name: %{name}
 Version: 7.0.6.1
-Release: 4
+Release: 5
 URL: https://epics.anl.gov/
 Summary: The Experimental Physics and Industrial Control Systems
 License: EPICS Open License
@@ -133,6 +133,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Aug 18 2022 fkraemer <fkraemer@gemini.edu> 7.0.6.1-5
+- new package built with tito
+
 * Thu Mar 17 2022 matt.rippa@noirlab.edu
 - tito tag 7.0.6.1-4
 - 98717feda - (13 days ago) quiet warnings - Michael Davidsaver (HEAD -> unstable/2022q1, upstream7-gh)
