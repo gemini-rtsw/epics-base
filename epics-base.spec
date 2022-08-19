@@ -56,8 +56,8 @@ targeted to the host system.
 cd vendor/epics-base
 cp ../../configure/CONFIG_SITE.local configure/
 git apply ../../0001-rtems-Close-NTP-socket.patch
-git apply ../../v2-0001-rtems-Provide-an-NTP-version-of-osdTime-for-POSIX.patch
-git apply ../../v2-0002-rtems-Check-NTP-env-variable-each-NTP-get-if-set-.patch
+git apply ../../v4-0001-rtems-Provide-an-NTP-version-of-osdTime-for-POSIX.patch
+git apply ../../v4-0002-rtems-Check-NTP-env-variable-each-NTP-get-if-set-.patch
 
 %build
 # the epics makefiles don't have seperate build and install phase.
