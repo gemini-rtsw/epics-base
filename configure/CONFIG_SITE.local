@@ -3,11 +3,9 @@
 # Which target architectures to cross-compile for.
 #  Definitions in configure/os/CONFIG_SITE.<host>.Common
 #  may override this setting.
-INSTALL_LOCATION = /home/fkraemer/tmp
-
 CROSS_COMPILER_TARGET_ARCHS=RTEMS-mvme2700 RTEMS-mvme3100 RTEMS-beatnik
 #CROSS_COMPILER_TARGET_ARCHS=RTEMS-beatnik
 
-RTEMS_BASE = /gem_base/test/fkraemer/targetOS/RTEMS/rtems/5
+RTEMS_BASE = /gem_base/targetOS/RTEMS/rtems/6d16ec5c71/5
 #RTEMS_BASE = /gem_base/test/targetOS/rtems/6
 RTEMS_VERSION = 5
