@@ -2,9 +2,9 @@
 
 set -x
 
-# fetch submodules
-git submodule init
-git submodule update
+## fetch submodules (not needed for submoduleAwareBuilder from tito
+#git submodule init
+#git submodule update
 
 # create a temporary copy of epics-base submodule to apply config and patches
 cp -r vendor/epics-base tmp
