@@ -6,6 +6,14 @@
 %define arch %(uname -m)
 %define checkout %(git log --pretty=format:'%h' -n 1) 
 
+# These defines need to be adjusted to point to the git ref
+# that is to be built
+
+# vendor/upstream git project
+%define vendor_project https://github.com/epics-base/epics-base.git
+# vendor git ref (tag or commit hash). Please keep in sync with 'Version' below!
+%define vendor_ref R7.0.7
+
 #These global defines are added to prevent stripping
 # symbols on vxWorks cross-compiled code
 # Getting 'strip' to work is probably only needed for
@@ -17,12 +25,17 @@
 %global debug_package %{nil}
 %global __os_install_post /usr/lib/rpm/brp-compress %{nil}
 
+# some binaries are consideed to have missing build-ids and the build would
+# be terminated if not ignoring that problem
+# fkraemer 20220927
+%global _missing_build_ids_terminate_build 0
+
 #%%global epics_prefix %%{_prefix}/lib/epics
 %global epics_prefix %{_prefix}/%{name}
 
 Name: %{name}
-Version: 7.0.6.1
-Release: 5
+Version: 7.0.7
+Release: 0
 URL: https://epics.anl.gov/
 Summary: The Experimental Physics and Industrial Control Systems
 License: EPICS Open License
@@ -53,20 +66,30 @@ targeted to the host system.
 
 %prep
 %autosetup
-cd vendor/epics-base
-cp ../../configure/CONFIG_SITE.local configure/
-git apply ../../0001-rtems-Close-NTP-socket.patch
-git apply ../../v4-0001-rtems-Provide-an-NTP-version-of-osdTime-for-POSIX.patch
-git apply ../../v4-0002-rtems-Check-NTP-env-variable-each-NTP-get-if-set-.patch
 
 %build
 # the epics makefiles don't have seperate build and install phase.
+git clone --recurse-submodules %{vendor_project} vendor_project
+cd vendor_project
+git checkout %{vendor_ref}
+git submodule update --init --recursive
+
+# apply Gemini-specific configuration
+cp ../configure/CONFIG_SITE.local configure/
+
+# apply patches
+git apply ../0001-rtems-Close-NTP-socket.patch
+git apply ../v4-0001-rtems-Provide-an-NTP-version-of-osdTime-for-POSIX.patch
+git apply ../v4-0002-rtems-Check-NTP-env-variable-each-NTP-get-if-set-.patch
 
 %install
+# cd into the directory containing the vendor sources
+cd vendor_project
+
 # copy over Gemini-specific configuration file(s)
 # cp /gem_base/usr/share/epics/epics-base/configure/CONFIG_SITE.local.RTEMS5 %{_builddir}/%{?buildsubdir}/configure/CONFIG_SITE.local
 # don't actually need to export $EPICS_HOST_ARCH, but do so to ensure consistency
-export EPICS_HOST_ARCH=`%{_builddir}/%{?buildsubdir}/vendor/epics-base/startup/EpicsHostArch`
+export EPICS_HOST_ARCH=`%{_builddir}/%{?buildsubdir}/vendor_project/startup/EpicsHostArch`
 # we will disable -rpath, but need code generators (antelope/flex/msi) to work
 # during the build.
 export LD_LIBRARY_PATH=%{buildroot}%{epics_prefix}/lib/${EPICS_HOST_ARCH}
@@ -75,7 +98,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{epics_prefix}/lib/${EPICS_HOST_ARCH}
 # /usr/lib/rpm/fileattrs/elf.attr requires that that all ELF files be executable,
 # even shared libraries which don't otherwise need to be.
 # (debug auto dep. generation with semi-documented 'rpmbuild –rpmfcdebug')
-make -C "%{_builddir}/%{?buildsubdir}/vendor/epics-base" \
+make -C "%{_builddir}/%{?buildsubdir}/vendor_project" \
 LINKER_USE_RPATH=NO \
 SHRLIB_VERSION=%{version} \
 INSTALL_LOCATION="%{buildroot}%{epics_prefix}" \
