@@ -78,6 +78,7 @@ git submodule update --init --recursive
 cp ../configure/CONFIG_SITE.local configure/
 
 # apply patches
+git apply ../1000ms_per_tick.patch
 git apply ../0001-rtems-Close-NTP-socket.patch
 git apply ../v4-0001-rtems-Provide-an-NTP-version-of-osdTime-for-POSIX.patch
 git apply ../v4-0002-rtems-Check-NTP-env-variable-each-NTP-get-if-set-.patch

@@ -1,0 +1,13 @@
+diff --git a/modules/libcom/RTEMS/posix/rtems_config.c b/modules/libcom/RTEMS/posix/rtems_config.c
+index c9fa8a8d7..457f1f397 100644
+--- a/modules/libcom/RTEMS/posix/rtems_config.c
++++ b/modules/libcom/RTEMS/posix/rtems_config.c
+@@ -26,7 +26,7 @@ extern void *POSIX_Init(void *argument);
+ #define CONFIGURE_POSIX_INIT_THREAD_STACK_SIZE  (64*1024)
+ 
+ #define CONFIGURE_MAXIMUM_PERIODS 	5
+-#define CONFIGURE_MICROSECONDS_PER_TICK 10000
++#define CONFIGURE_MICROSECONDS_PER_TICK 1000
+ #define CONFIGURE_MALLOC_STATISTICS     1
+ /* MINIMUM_STACK_SIZE == 8K */
+ #define CONFIGURE_EXTRA_TASK_STACKS         (4000 * RTEMS_MINIMUM_STACK_SIZE)
