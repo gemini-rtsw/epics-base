@@ -12,7 +12,7 @@
 # vendor/upstream git project
 %define vendor_project https://github.com/epics-base/epics-base.git
 # vendor git ref (tag or commit hash). Please keep in sync with 'Version' below!
-%define vendor_ref R7.0.7
+%define vendor_ref 9c0c48611
 
 #These global defines are added to prevent stripping
 # symbols on vxWorks cross-compiled code
@@ -34,7 +34,7 @@
 %global epics_prefix %{_prefix}/%{name}
 
 Name: %{name}
-Version: 7.0.7
+Version: 7.0.7.9c0c48611
 Release: 0
 URL: https://epics.anl.gov/
 Summary: The Experimental Physics and Industrial Control Systems
@@ -156,69 +156,3 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Thu Aug 18 2022 fkraemer <fkraemer@gemini.edu> 7.0.6.1-5
-- new package built with tito
-
-* Thu Mar 17 2022 matt.rippa@noirlab.edu
-- tito tag 7.0.6.1-4
-- 98717feda - (13 days ago) quiet warnings - Michael Davidsaver (HEAD -> unstable/2022q1, upstream7-gh)
-- See https://gitlab.com/nsf-noirlab/gemini/rtsw/epics-base/epics-base/-/issues/18
-- [mrippa@hbfswgade-lv1 epics-base]$ git lg --topo-order stable/2021q4^..unstable/2022q1
-
-* Thu Mar 17 2022 matt.rippa@noirlab.edu
-- 98717feda - (13 days ago) quiet warnings - Michael Davidsaver (HEAD -> unstable/2022q1, upstream7-gh)
-- See https://gitlab.com/nsf-noirlab/gemini/rtsw/epics-base/epics-base/-/issues/18
-- [mrippa@hbfswgade-lv1 epics-base]$ git lg --topo-order stable/2021q4^..unstable/2022q1
-- tito tag 7.0.6.1-4 
-
-* Thu Mar 17 2022 matt.rippa@noirlab.edu
-- 98717feda - (13 days ago) quiet warnings - Michael Davidsaver (HEAD -> unstable/2022q1, upstream7-gh)
-- tito tag 7.0.6.1-4 unstable/2022q1
-- Squishing comments: See https://gitlab.com/nsf-noirlab/gemini/rtsw/epics-base/epics-base/-/issues/18
-- $ git lg --topo-order stable/2021q4^..unstable/2022q1
-
-* Wed Oct 27 2021 fkraemer <fkraemer@gemini.edu> 7.0.6.1-1
-- new package built with tito
-
-* Mon Jul 26 2021 Matt Rippa <mrippa@gemini.edu> 7.0.6-2
-- Changes name from rtems5 to rtems. We need name:rtems Version:5 Release:1
-- Automatic commit of package [epics-base] minor release [7.0.6-1].
-
-* Fri Jul 23 2021 Matt Rippa <mrippa@gemini.edu> 7.0.6-1
-- Gemini Test Release of EPICS 7.0.6
-
-* Wed May 05 2021 fkraemer <fkraemer@gemini.edu> 7.0.5-8
-- changed specfile with influences from mdavidasver switch off smp compilation
-- applied changes to Containerfile because of renaming of gem-rtsw-repos
-- updated gem-rtsw-repo submodule to newest hash
-
-* Wed May 05 2021 fkraemer <fkraemer@gemini.edu>
-- changed specfile with influences from mdavidasver switch off smp compilation
-- applied changes to Containerfile because of renaming of gem-rtsw-repos
-- updated gem-rtsw-repo submodule to newest hash
-
-* Wed May 05 2021 fkraemer <fkraemer@gemini.edu>
-- changed specfile with influences from mdavidasver switch off smp compilation
-- applied changes to Containerfile because of renaming of gem-rtsw-repos
-- updated gem-rtsw-repo submodule to newest hash
-
-* Thu Apr 15 2021 Felix Kraemer <fkraemer@gemini.edu> 7.0.5-5
-- added gemini-ade dependency for BuildRequires tag in specfile and for
-  Requires tag in devel in specfile after fixing dependency chain at lower
-  level in tdct
-- Update to gem-rtsw-repo submodule for rtems4-epics7
-* Fri Apr 09 2021 Felix Kraemer <fkraemer@gemini.edu> 7.0.5-4
-- renamed testing-targets to testing-target-repositories
-- added language pack to containerfile
-- merged UPSTREAM-7.0
-* Wed Mar 31 2021 Felix Kraemer <fkraemer@gemini.edu> 7.0.5-3
-- removed gemini-ade dependency because of conflicting requests
-
-* Wed Mar 31 2021 Felix Kraemer <fkraemer@gemini.edu> 7.0.5-2
-- added gem-rtsw-repo as submodule 
-- created Containerfile for creating epics-
-  base docker image
-
-* Mon Mar 29 2021 Felix Kraemer <fkraemer@gemini.edu> 7.0.5-1
-- new package built with tito
-
