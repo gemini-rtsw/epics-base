@@ -77,13 +77,13 @@ git submodule update --init --recursive
 # apply Gemini-specific configuration
 cp ../configure/CONFIG_SITE.local configure/
 
+# apply Chris' rtems6 compatibility patch from epics-base PR 375
+git am ../upstream-375.patch
 # apply patches
 git apply ../1000ms_per_tick.patch
 git apply ../0001-rtems-Close-NTP-socket.patch
 git apply ../v4-0001-rtems-Provide-an-NTP-version-of-osdTime-for-POSIX.patch
 git apply ../v4-0002-rtems-Check-NTP-env-variable-each-NTP-get-if-set-.patch
-# apply Chris' rtems6 compatibility patch from epics-base PR 375
-git am ../upstream-375.patch
 
 %install
 # cd into the directory containing the vendor sources
