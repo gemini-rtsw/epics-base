@@ -78,7 +78,9 @@ git submodule update --init --recursive
 cp ../configure/CONFIG_SITE.local configure/
 
 # apply Chris' rtems6 compatibility patch from epics-base PR 375
-git am --no-message-id ../upstream-375.patch
+git config user.email "user@email.com"
+git config user.name "User Name"
+git am ../upstream-375.patch
 # apply patches
 git apply ../1000ms_per_tick.patch
 git apply ../0001-rtems-Close-NTP-socket.patch
