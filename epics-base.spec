@@ -10,9 +10,11 @@
 # that is to be built
 
 # vendor/upstream git project
-%define vendor_project https://github.com/epics-base/epics-base.git
+## For now (until merged into upstream) use Chris Johns' repo for added ntpd functionality
+## %%define vendor_project https://github.com/epics-base/epics-base.git
+%define vendor_project https://github.com/kiwichris/epics-base.git
 # vendor git ref (tag or commit hash). Please keep in sync with 'Version' below!
-%define vendor_ref 9c0c48611
+%define vendor_ref 70a75d3c54b3e900ffdfcbc9d5e1193569311902
 
 #These global defines are added to prevent stripping
 # symbols on vxWorks cross-compiled code
@@ -34,7 +36,7 @@
 %global epics_prefix %{_prefix}/%{name}
 
 Name: %{name}
-Version: 7.0.7.5eff3803a
+Version: 7.0.7
 Release: 0
 URL: https://epics.anl.gov/
 Summary: The Experimental Physics and Industrial Control Systems
@@ -77,15 +79,15 @@ git submodule update --init --recursive
 # apply Gemini-specific configuration
 cp ../configure/CONFIG_SITE.local configure/
 
-# apply Chris' rtems6 compatibility patch from epics-base PR 375
-git config user.email "user@email.com"
-git config user.name "User Name"
-git am ../upstream-375.patch
+## apply Chris' rtems6 compatibility patch from epics-base PR 375
+#git config user.email "user@email.com"
+#git config user.name "User Name"
+#git am ../upstream-375.patch
 # apply patches
 git apply ../1000ms_per_tick.patch
-git apply ../0001-rtems-Close-NTP-socket.patch
-git apply ../v4-0001-rtems-Provide-an-NTP-version-of-osdTime-for-POSIX.patch
-git apply ../v4-0002-rtems-Check-NTP-env-variable-each-NTP-get-if-set-.patch
+#git apply ../0001-rtems-Close-NTP-socket.patch
+#git apply ../v4-0001-rtems-Provide-an-NTP-version-of-osdTime-for-POSIX.patch
+#git apply ../v4-0002-rtems-Check-NTP-env-variable-each-NTP-get-if-set-.patch
 
 %install
 # cd into the directory containing the vendor sources
