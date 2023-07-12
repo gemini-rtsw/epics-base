@@ -14,7 +14,7 @@
 ## %%define vendor_project https://github.com/epics-base/epics-base.git
 %define vendor_project https://github.com/kiwichris/epics-base.git
 # vendor git ref (tag or commit hash). Please keep in sync with 'Version' below!
-%define vendor_ref 70a75d3c54b3e900ffdfcbc9d5e1193569311902
+%define vendor_ref 683da46ed
 
 #These global defines are added to prevent stripping
 # symbols on vxWorks cross-compiled code
