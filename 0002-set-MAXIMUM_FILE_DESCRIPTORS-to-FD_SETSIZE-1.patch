@@ -1,0 +1,26 @@
+diff --git a/modules/libcom/RTEMS/posix/rtems_config.c b/modules/libcom/RTEMS/posix/rtems_config.c
+index e4f882355..9bf249360 100644
+--- a/modules/libcom/RTEMS/posix/rtems_config.c
++++ b/modules/libcom/RTEMS/posix/rtems_config.c
+@@ -73,7 +73,7 @@ extern void *POSIX_Init(void *argument);
+  *
+  *       cf. https://github.com/epics-base/epics-base/issues/300
+  */
+-#define CONFIGURE_MAXIMUM_FILE_DESCRIPTORS 64
++#define CONFIGURE_MAXIMUM_FILE_DESCRIPTORS FD_SETSIZE-1
+ #define CONFIGURE_IMFS_ENABLE_MKFIFO    2
+ 
+ #define CONFIGURE_MAXIMUM_NFS_MOUNTS 		3
+diff --git a/modules/libcom/RTEMS/score/rtems_config.c b/modules/libcom/RTEMS/score/rtems_config.c
+index 36b297176..cb49e33d5 100644
+--- a/modules/libcom/RTEMS/score/rtems_config.c
++++ b/modules/libcom/RTEMS/score/rtems_config.c
+@@ -33,7 +33,7 @@
+ #define CONFIGURE_MAXIMUM_MESSAGE_QUEUES    rtems_resource_unlimited(5)
+ #define CONFIGURE_MAXIMUM_USER_EXTENSIONS   1
+ 
+-#define CONFIGURE_LIBIO_MAXIMUM_FILE_DESCRIPTORS 150
++#define CONFIGURE_LIBIO_MAXIMUM_FILE_DESCRIPTORS FD_SETSIZE-1
+ #define CONFIGURE_USE_IMFS_AS_BASE_FILESYSTEM
+ #define CONFIGURE_MAXIMUM_DRIVERS       8
+ 

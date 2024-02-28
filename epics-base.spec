@@ -85,6 +85,7 @@ cp ../configure/CONFIG_SITE.local configure/
 #git am ../upstream-375.patch
 # apply patches
 git apply ../1000ms_per_tick.patch
+git apply ../0002-set-MAXIMUM_FILE_DESCRIPTORS-to-FD_SETSIZE-1.patch
 #git apply ../0001-rtems-Close-NTP-socket.patch
 #git apply ../v4-0001-rtems-Provide-an-NTP-version-of-osdTime-for-POSIX.patch
 #git apply ../v4-0002-rtems-Check-NTP-env-variable-each-NTP-get-if-set-.patch
