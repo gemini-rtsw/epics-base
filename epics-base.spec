@@ -12,9 +12,10 @@
 # vendor/upstream git project
 ## For now (until merged into upstream) use Chris Johns' repo for added ntpd functionality
 ## %%define vendor_project https://github.com/epics-base/epics-base.git
-%define vendor_project https://github.com/kiwichris/epics-base.git
+## %%define vendor_project https://github.com/kiwichris/epics-base.git
+%define vendor_project https://github.com/krafel/epics-base.git
 # vendor git ref (tag or commit hash). Please keep in sync with 'Version' below!
-%define vendor_ref f9badbb55e732e4bb2e86c6c229643e6fdc4b647
+%define vendor_ref d18bee643ac657ba8c5054b67845c7875bdb7cfb
 
 #These global defines are added to prevent stripping
 # symbols on vxWorks cross-compiled code
