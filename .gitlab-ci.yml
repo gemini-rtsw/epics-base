@@ -16,5 +16,5 @@ variables:
     # For all other projects (where essentially only an RPM is build and deployed
     # to one of the repos defined by the three/four types of projects above) this
     # setting is derived from the branch name
-    BASE_CONTAINER: "http://registry.gitlab.com/nsf-noirlab/gemini/rtsw/gem-ci/common_testing/2026q2-gnao:latest"
+    BASE_CONTAINER: "registry.gitlab.com/nsf-noirlab/gemini/rtsw/gem-ci/common_testing/2026q2-gnao:latest"
     RPM_SEMVER_BASE: "7.0.7"
