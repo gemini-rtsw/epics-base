@@ -107,7 +107,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{epics_prefix}/lib/${EPICS_HOST_ARCH}
 # /usr/lib/rpm/fileattrs/elf.attr requires that that all ELF files be executable,
 # even shared libraries which don't otherwise need to be.
 # (debug auto dep. generation with semi-documented 'rpmbuild –rpmfcdebug')
-make -C "%{_builddir}/%{?buildsubdir}/vendor_project" \
+make %{?_smp_mflags} -C "%{_builddir}/%{?buildsubdir}/vendor_project" \
 LINKER_USE_RPATH=NO \
 SHRLIB_VERSION=%{version} \
 INSTALL_LOCATION="%{buildroot}%{epics_prefix}" \
