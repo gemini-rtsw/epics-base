@@ -116,6 +116,9 @@ BIN_PERMISSIONS=755 \
 LIB_PERMISSIONS=644 \
 SHRLIB_PERMISSIONS=755
 
+echo "INFO: EPICS install tree under %{buildroot}%{epics_prefix}"
+find %{buildroot}%{epics_prefix} -maxdepth 2 -type d | sort
+
 # remove builtroot from various
 sed -i -e 's|%{buildroot}||g' \
  %{buildroot}%{epics_prefix}/bin/*/caRepeater.service \
