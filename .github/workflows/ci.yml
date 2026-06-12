@@ -2,9 +2,9 @@ name: Build
 
 on:
   push:
-    branches: [gemini-epics7]
+    branches: [gemini-epics7-el9]
   pull_request:
-    branches: [gemini-epics7]
+    branches: [gemini-epics7-el9]
 
 jobs:
   build:
