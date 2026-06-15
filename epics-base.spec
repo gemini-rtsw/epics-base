@@ -48,6 +48,9 @@ Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
 
 BuildRequires: re2c readline-devel ncurses-devel perl rtems gemini-ade
+# EL9's minimal 'perl' no longer pulls in these core modules used by the
+# EPICS build tools (convertRelease.pl, installEpics.pl)
+BuildRequires: perl(FindBin) perl(File::Copy)
 Requires: readline perl
 Provides: perl(EPICS::Release) perl(EPICS::Copy) perl(EPICS::Path)
 
