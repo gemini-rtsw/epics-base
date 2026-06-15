@@ -16,6 +16,8 @@
 %define vendor_project https://github.com/krafel/epics-base.git
 # vendor git ref (tag or commit hash). Please keep in sync with 'Version' below!
 %define vendor_ref d18bee643ac657ba8c5054b67845c7875bdb7cfb
+# short git hash of the vendor ref, embedded in the RPM release/name
+%define vendor_ref_short %(c=%{vendor_ref}; echo ${c:0:7})
 
 #These global defines are added to prevent stripping
 # symbols on vxWorks cross-compiled code
@@ -38,7 +40,7 @@
 
 Name: %{name}
 Version: 7.0.7
-Release: 0
+Release: 0.git%{vendor_ref_short}%{?dist}
 URL: https://epics.anl.gov/
 Summary: The Experimental Physics and Industrial Control Systems
 License: EPICS Open License
