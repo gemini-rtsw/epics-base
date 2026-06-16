@@ -4,7 +4,10 @@
 %define repository gemdev
 %define debug_package %{nil}
 %define arch %(uname -m)
-%define checkout %(git log --pretty=format:'%h' -n 1) 
+# Short git hash of THIS packaging repo's HEAD, embedded in Release. The CI
+# build container exports GIT_HASH; fall back to git (works for local builds
+# run from the repo root) or "nogit".
+%define checkout %(if [ -n "$GIT_HASH" ]; then echo "$GIT_HASH"; else git rev-parse --short HEAD 2>/dev/null || echo nogit; fi)
 
 # These defines need to be adjusted to point to the git ref
 # that is to be built
@@ -39,8 +42,12 @@
 %global epics_prefix %{_prefix}/%{name}
 
 Name: %{name}
+# Version is the upstream EPICS release; the upstream source commit is recorded
+# by %%{vendor_ref} above (and the `git checkout %%{vendor_ref}` in %%build).
+# Release embeds THIS repo's git hash + the el dist, matching the support
+# modules' N.git.<hash>.el<N> convention.
 Version: 7.0.7
-Release: 0.git%{vendor_ref_short}%{?dist}
+Release: 0.git.%{checkout}%{?dist}
 URL: https://epics.anl.gov/
 Summary: The Experimental Physics and Industrial Control Systems
 License: EPICS Open License
