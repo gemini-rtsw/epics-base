@@ -54,7 +54,7 @@ License: EPICS Open License
 Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
 
-BuildRequires: re2c readline-devel ncurses-devel perl rtems gemini-ade
+BuildRequires: re2c readline-devel ncurses-devel perl rtems = 6.2-0.095d0a5.el8 gemini-ade
 Requires: readline perl
 Provides: perl(EPICS::Release) perl(EPICS::Copy) perl(EPICS::Path)
 
@@ -64,7 +64,7 @@ EPICS is a set of Open Source software tools, libraries and applications develop
 
 %package devel
 Requires: epics-base%{?_isa} == %{version}-%{release}
-Requires: epics-base rtems re2c readline-devel perl gemini-ade
+Requires: epics-base rtems = 6.2-0.095d0a5.el8 re2c readline-devel perl gemini-ade
 Group: Development/Libraries
 Summary: Files needed to develop new EPICS applications
 # some perl modules are missing a package declaration
