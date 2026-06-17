@@ -55,16 +55,15 @@ Group: Applications/Engineering
 Source0: %{name}-%{version}.tar.gz
 
 BuildRequires: re2c readline-devel ncurses-devel perl gemini-ade
-# rtems toolchain. The exact NVR differs per EL (different dist + git hash),
-# so pin per-target; bare rtems on EL9 until its rtems build is pinned.
-%if 0%{?rhel} >= 9
-BuildRequires: rtems
-# EL9's minimal perl no longer pulls in these core modules used by the EPICS
-# build tools (convertRelease.pl, installEpics.pl).
+# rtems toolchain, pinned to the exact git hash. %{?dist} resolves to the
+# building container's EL (.el8/.el9/...), so the same line works for every
+# target -- the rtems build uses the same git hash across EL versions, only
+# the dist suffix differs.
+BuildRequires: rtems = 6.2-0.095d0a5%{?dist}
+# Core perl modules the EPICS build tools use (convertRelease.pl, installEpics.pl).
+# On EL9+ perl is stripped down so these must be requested explicitly; harmless
+# and satisfiable on EL8 too, so require them unconditionally.
 BuildRequires: perl(FindBin) perl(File::Copy)
-%else
-BuildRequires: rtems = 6.2-0.095d0a5.el8
-%endif
 Requires: readline perl
 Provides: perl(EPICS::Release) perl(EPICS::Copy) perl(EPICS::Path)
 
@@ -75,11 +74,7 @@ EPICS is a set of Open Source software tools, libraries and applications develop
 %package devel
 Requires: epics-base%{?_isa} == %{version}-%{release}
 Requires: epics-base re2c readline-devel perl gemini-ade
-%if 0%{?rhel} >= 9
-Requires: rtems
-%else
-Requires: rtems = 6.2-0.095d0a5.el8
-%endif
+Requires: rtems = 6.2-0.095d0a5%{?dist}
 Group: Development/Libraries
 Summary: Files needed to develop new EPICS applications
 # some perl modules are missing a package declaration
