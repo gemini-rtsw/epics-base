@@ -59,7 +59,7 @@ BuildRequires: re2c readline-devel ncurses-devel perl gemini-ade
 # building container's EL (.el8/.el9/...), so the same line works for every
 # target -- the rtems build uses the same git hash across EL versions, only
 # the dist suffix differs.
-BuildRequires: rtems = 6.2-0.83035d4%{?dist}
+BuildRequires: rtems = 6.2-0.202178e%{?dist}
 # Core perl modules the EPICS build tools use (convertRelease.pl, installEpics.pl).
 # On EL9+ perl is stripped down so these must be requested explicitly; harmless
 # and satisfiable on EL8 too, so require them unconditionally.
@@ -74,7 +74,7 @@ EPICS is a set of Open Source software tools, libraries and applications develop
 %package devel
 Requires: epics-base%{?_isa} == %{version}-%{release}
 Requires: epics-base re2c readline-devel perl gemini-ade
-Requires: rtems = 6.2-0.83035d4%{?dist}
+Requires: rtems = 6.2-0.202178e%{?dist}
 Group: Development/Libraries
 Summary: Files needed to develop new EPICS applications
 # some perl modules are missing a package declaration
