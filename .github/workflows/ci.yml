@@ -12,14 +12,19 @@ jobs:
       fail-fast: false
       matrix:
         el: ['8', '9']
-    uses: gemini-rtsw/gemini-rtsw-ci/.github/workflows/ci.yml@main-el8
+    uses: gemini-rtsw/gemini-rtsw-ci/.github/workflows/ci.yml@main
     with:
       scripts_dir: gemini-rtsw-ci
       el_version: ${{ matrix.el }}
+      # Pipeline-port build: do NOT register. Release is 0.git.<hash>, so this
+      # commit mints a new epics-base NVR (~528MB x2) that nothing consumes --
+      # the whole stack pins f9e3717 or 5fb1f41. Set true for a release the
+      # support modules will actually be rebuilt against.
+      register: false
 
   # Rebuild rpm-repo:latest ONCE, after both EL legs have pushed their scratch
   # tags. Single writer -> no el8/el9 race on :latest. Shows as the final job.
   publish:
     needs: build
-    uses: gemini-rtsw/gemini-rtsw-ci/.github/workflows/publish.yml@main-el8
+    uses: gemini-rtsw/gemini-rtsw-ci/.github/workflows/publish.yml@main
     secrets: inherit
